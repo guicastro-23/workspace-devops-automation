@@ -44,8 +44,8 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
-          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
-          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+          username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+          password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
 
       - name: Push Docker image to Azure Container Registry
         run: docker push $REGISTRY_IMAGE
